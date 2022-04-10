@@ -26,9 +26,9 @@ The goal of this algorithm is to estimate the coefficients of the transfer funct
 ~~~
 # 2 - Theory and formulation of the RLS
 RLS method for system identification is a least square method so its main idea consists of minimizing the *cost function* **J** as the sum of squares of the error terms.
-> e(k) = Y(k) - Y^(K)
-> 
-                   
+> e(k) = Y(k) - Y^(K) <br/>
+> J =
+
                    
                    
                    
