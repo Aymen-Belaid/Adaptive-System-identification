@@ -13,15 +13,15 @@ In order to work with a system with structured and unstructured uncertainties we
 A way to do so is the **Recursive Least Square algorithm** (RLS) for system's parameter identification. This estimation theory refers to calculating the coefficients of a model from a set of inputs and outputs.
 The goal of this algorithm is to estimate the coefficients of the transfer function of the system given the inputs and output as shown in the block diagram down below :
 ~~~
-                                                      _ _ _ _ _ _ _ _ _ _ _ _ 
-                                  Model input U(k)   |                       |   Model Output Y(k)
-                                  ------------------>| Model to be estimated  |------------------------->
-                                    |                |_ _ _ _ _ _ _ _ _ _ _ _ |        |
-                                    |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
-                                    |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
-                                    |        ------>|                         |  Estimated output Y^(k)
-                                    |-------------->|         Estimator       |------------------------->
-                                                    |_ _ _ _ _ _ _ _ _ _ _ _ _| 
+                                                  _ _ _ _ _ _ _ _ _ _ _ _ 
+                              Model input U(k)   |                       |   Model Output Y(k)
+                              ------------------>| Model to be estimated  |------------------------->
+                                |                |_ _ _ _ _ _ _ _ _ _ _ _ |        |
+                                |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
+                                |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
+                                |        ------>|                         |  Estimated output Y^(k)
+                                |-------------->|         Estimator       |------------------------->
+                                                |_ _ _ _ _ _ _ _ _ _ _ _ _| 
 
 ~~~
 # 2 - Theory and formulation of the RLS
