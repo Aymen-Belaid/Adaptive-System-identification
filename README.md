@@ -48,8 +48,14 @@ We define a correlation matrix related to the covariance of **Theta**
 
 A varying gain K:
 >![K](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20K_%7BN&plus;1%7D%3D%20%5Cfrac%7BP_%7BN%7DX_%7BN&plus;1%7D%7D%7B%5Clambda%20&plus;X_%7BN&plus;1%7D%5E%7BT%7DP_%7BN%7DX_%7BN&plus;1%7D%7D%7D)
+
 thus we define the updated transfer function coefficients:
 >![Theta](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20%5CTheta%20_%7BN&plus;1%7D%20%3D%20%5CTheta_%7BN%7D%20&plus;K_%7BN&plus;1%7D%5BY_%7BN&plus;1%7D%20-%20X_%7BN&plus;1%7D%5E%7BT%7D%5CTheta%20_%7BN%7D%5D%7D)
+
+With the recursive equations in place, I will give a brieve description of the implementation of RLS algorithm on a NUCLEO-STM32H723ZG board. 
+And testing it's performance on a DC Motor.<br/>
+# 3 - RLS implementation and Testing
+
 
 
 
