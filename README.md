@@ -15,8 +15,8 @@ The goal of this algorithm is to estimate the coefficients of the transfer funct
 ~~~
                                                   _ _ _ _ _ _ _ _ _ _ _ _ 
                               Model input U(k)   |                       |   Model Output Y(k)
-                              ------------------>| Model to be estimated  |------------------------->
-                                |                |_ _ _ _ _ _ _ _ _ _ _ _ |        |
+                              ------------------>| Model to be estimated |------------------------->
+                                |                |_ _ _ _ _ _ _ _ _ _ _ _|         |
                                 |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
                                 |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
                                 |        ------>|                         |  Estimated output Y'(k)
