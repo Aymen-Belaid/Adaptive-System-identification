@@ -10,22 +10,24 @@ You got the idea ! <br/>*
 These unexpected changes impact jurasticly the dynamics of the system and in consequence the system's parameters change.<br/>
 These changes are called uncertainties and in a dynamical system uncertainties happen frequently. And they always exist due to modeling errors, measurement inaccuracy, mutations in the evolutionary processes, environnment variations and so on. </br>
 In order to work with a system with structured and unstructured uncertainties we have to modelise it in an recursive way so it changes and adapts to dynamics changes. 
-A way to do so is the **Recursive Least Square algorithm** [RLS]for system's parameter identification. This estimation theory refers to calculating the coefficients of a model from a set of inputs and outputs.
+A way to do so is the **Recursive Least Square algorithm** (RLS) for system's parameter identification. This estimation theory refers to calculating the coefficients of a model from a set of inputs and outputs.
 The goal of this algorithm is to estimate the coefficients of the transfer function of the system given the inputs and output as shown in the block diagram down below :
 ~~~
                                                       _ _ _ _ _ _ _ _ _ _ _ _ 
-                                  Model input        |                        |   Model Output
-                                  ------------------>| Model to be estimated  |--------------------->
+                                  Model input U(k)   |                       |   Model Output Y(k)
+                                  ------------------>| Model to be estimated  |------------------------->
                                     |                |_ _ _ _ _ _ _ _ _ _ _ _ |        |
                                     |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
                                     |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
-                                    |        ------>|                         |  Estimated output
-                                    |-------------->|         Estimator       |---------------------->
+                                    |        ------>|                         |  Estimated output Y^(k)
+                                    |-------------->|         Estimator       |------------------------->
                                                     |_ _ _ _ _ _ _ _ _ _ _ _ _| 
 
 ~~~
 # 2 - Theory and formulation of the RLS
-
+RLS method for system identification is a least square method so its main idea consists of minimizing the *cost function* **J** as the sum of squares of the error terms.
+> e(k) = Y(k) - Y^(K)
+> 
                    
                    
                    
