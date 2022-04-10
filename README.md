@@ -19,18 +19,25 @@ The goal of this algorithm is to estimate the coefficients of the transfer funct
                                 |                |_ _ _ _ _ _ _ _ _ _ _ _ |        |
                                 |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
                                 |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
-                                |        ------>|                         |  Estimated output Y^(k)
+                                |        ------>|                         |  Estimated output Y'(k)
                                 |-------------->|         Estimator       |------------------------->
                                                 |_ _ _ _ _ _ _ _ _ _ _ _ _| 
 
 ~~~
 # 2 - Theory and formulation of the RLS
 RLS method for system identification is a least square method so its main idea consists of minimizing the *cost function* **J** as the sum of squares of the error terms.
-> e(k) = Y(k) - Y^(K) <br/>
->[cost function formula](https://latex.codecogs.com/gif.latex?%7B%5Ccolor%7BDarkBlue%7DJ%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bk%20%3D%201%7D%5E%7BN%7De%28k%29%5E%7B2%7D%7D)
+> e(k) = Y(k) - Y'(K) <br/>
+>![cost function formula](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20e%28k%29%3DY%28k%29-Y%27%28k%29%20%7D)<br/>
+>N : The number of samples
 
-N : The number of samples
-We define 
+We define the estimated transfer function Y'(k) as follows :
+> ![Transfer function](https://latex.codecogs.com/png.latex?%5Cdpi%7B80%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20H%28z%29%20%3D%20%5Cfrac%7BY%27%28z%29%7D%7BU%28z%29%7D%20%3D%20%5Cfrac%7Bb_%7B1%7Dz%5E%7B-1%7D%20&plus;%20b_%7B2%7Dz%5E%7B-2%7D&plus;...&plus;b_%7Bn%7Dz%5E%7B-n%7D%7D%7B1&plus;a_%7B1%7Dz%5E%7B-1%7D%20&plus;%20a_%7B2%7Dz%5E%7B-2%7D&plus;...&plus;a_%7Bn%7Dz%5E%7B-n%7D%7D%7D)<br/>
+
+We can then write
+>![Y(k)](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20Y%28k%29%3D%5CTheta%20X%7D)
+with<br/>
+>![teta](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20%5CTheta%20%3D%5Cbegin%7Bbmatrix%7D%20a_%7B1%7D%26a_%7B2%7D%26.%26.%26.%26a_%7Bn%7D%26b_%7B1%7D%26.%26.%26.%26b_%7Bn%7D%20%5Cend%7Bbmatrix%7D%7D)
+>
                    
                    
                    
