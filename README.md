@@ -9,7 +9,7 @@ You got the idea ! <br/>*
 
 These unexpected changes impact jurasticly the dynamics of the system and in consequence the system's parameters change.<br/>
 These changes are called uncertainties and in a dynamical system uncertainties happen frequently. And they always exist due to modeling errors, measurement inaccuracy, mutations in the evolutionary processes, environnment variations and so on. </br>
-In order to work with a system with structured and unstructured uncertainties we have to modelise it in an recursive way so it changes and adapts to dynamics changes. 
+In order to work with a system with structured and unstructured uncertainties we have to modelise it in a recursive way so it changes and adapts to dynamics changes. 
 A way to do so is the **Recursive Least Square algorithm** (RLS) for system's parameter identification. This estimation theory refers to calculating the coefficients of a model from a set of inputs and outputs.
 The goal of this algorithm is to estimate the coefficients of the transfer function of the system given the inputs and output as shown in the block diagram down below :
 ~~~
@@ -20,7 +20,7 @@ The goal of this algorithm is to estimate the coefficients of the transfer funct
                                 |        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |    
                                 |       |        _ _ _ _ _ _ _ _ _ _ _ _ _ 
                                 |        ------>|                         |  Estimated output Y'(k)
-                                |-------------->|         Estimator       |------------------------->
+                                 -------------->|         Estimator       |------------------------->
                                                 |_ _ _ _ _ _ _ _ _ _ _ _ _| 
 
 ~~~
