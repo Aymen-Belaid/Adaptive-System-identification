@@ -1,6 +1,6 @@
 # RLS-ALGORITHM
 # 1 - Introduction
-When working on a dynamic system, either to control it or to study it's stability or what ever, we find ourselves stuck not knowing its parameters. 
+When working on a dynamic system, either to control it or to study its stability or what ever, we find ourselves stuck not knowing its parameters. 
 Scrolling down datasheets and finding out each parameter of each component of the system is a way of doing, but is it the most efficient way? 
 To answer the efficency question, let's look at a brief exemple.<br/> 
 
