@@ -55,7 +55,7 @@ thus we define the updated transfer function coefficients:
 With the recursive equations in place, I will give a brieve description of the implementation of RLS algorithm on a NUCLEO-STM32H723ZG board. 
 And testing it's performance on a DC Motor.<br/>
 # 3 - RLS implementation and Testing
-
+I will present in this section the steps I have done to validate and implement RLS Algorithm
 
 
 
