@@ -59,11 +59,13 @@ I will present in this section the steps I have done to validate and implement R
 I first started by validating the model on Matlab because it was more practical in the implementation and the fastest way to test the efficency of my RLS algotithm.
 So I collected Input (Voltage) and Output (Speed) data from the Microcontroller using semi-hosting feature.<br/>
 The input signal:
->![Input](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%5Ccolor%7BTeal%7DInput%20%3D%204x%28%5Cfrac%7B2.2sin%283.123t&plus;1.1%29&plus;2.3%7D%7B4.9%7D&plus;%5Cfrac%7B1.7sin%285.73t&plus;0.7%29&plus;1.8%7D%7B3.5%7D&plus;%5Cfrac%7B1.4sin%282.39t&plus;1.6%29&plus;1.4%7D%7B2.8%7D%29)
+>![Input](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%5Ccolor%7BTeal%7DInput%20%3D%204x%28%5Cfrac%7B2.2sin%283.123t&plus;1.1%29&plus;2.3%7D%7B4.9%7D&plus;%5Cfrac%7B1.7sin%285.73t&plus;0.7%29&plus;1.8%7D%7B3.5%7D&plus;%5Cfrac%7B1.4sin%282.39t&plus;1.6%29&plus;1.4%7D%7B2.8%7D%29)<br/>
 >t = N/Fs.
 >N:Number of samples at t and Fs:Sampling Frequency.
 
 I aimed to choose the input signal as a combination of sinusoids in order to have a diverse set of data for testing.<br/>
+Since I am testing the model on a DC-MOTOR with NUCLEO-STM32H723ZG board, I will be using the PWM Timer's feature to generate this Input signal with varying the Duty Cycle as shown below : 
+>![PWM](https://www.electronique-mixte.fr/wp-content/uploads/2016/01/signal-pwm-1.png)
 
 
 
