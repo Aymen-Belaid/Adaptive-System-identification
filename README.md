@@ -1,5 +1,5 @@
 # Adaptive-System-Parameter-Identification
-# 1 - Introduction
+## 1 - Introduction
 When working on a dynamic system, either to control it or to study its stability or what ever, we find ourselves stuck not knowing its parameters. 
 Scrolling down datasheets and finding out each parameter of each component of the system is a way of doing, but is it the most efficient way? 
 To answer the efficency question, let's look at a brief exemple.<br/> 
@@ -24,7 +24,7 @@ The goal of this algorithm is to estimate the coefficients of the transfer funct
                                                 |_ _ _ _ _ _ _ _ _ _ _ _ _| 
 
 ~~~
-# 2 - Theory and formulation of the RLS
+## 2 - Theory and formulation of the RLS
 RLS method for system identification is a least square method so its main idea consists of minimizing the *cost function* **J** as the sum of squares of the error terms.
 >![erreur](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20e%28k%29%3DY%28k%29-Y%27%28k%29%20%7D)<br/>
 >![cast function](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%7B%5Ccolor%7BCadetBlue%7D%20J%3D%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bk%3D1%7D%5E%7BN%7De%28k%29%5E%7B2%7D%7D)<br/>
@@ -54,7 +54,7 @@ thus we define the updated transfer function coefficients:
 
 With the recursive equations in place, I will give a brieve description of the implementation of RLS algorithm on a NUCLEO-STM32H723ZG board. 
 And testing it's performance on a DC Motor.<br/>
-# 3 - RLS implementation and Testing
+## 3 - RLS implementation and Testing
 I will present in this section the steps I have done to validate and implement RLS Algorithm.
 I first started by validating the model on Matlab because it was more practical in the implementation and the fastest way to test the efficency of my RLS algotithm.
 So I collected Input (Voltage) and Output (Speed) data from the Microcontroller using semi-hosting feature.<br/>
@@ -67,6 +67,11 @@ I aimed to choose the input signal as a combination of sinusoids in order to hav
 Since I am testing the model on a DC-MOTOR with NUCLEO-STM32H723ZG board, I will be using the PWM Timer's feature to generate this Input signal with varying the Duty Cycle as shown below : 
 >![PWM](https://www.electronique-mixte.fr/wp-content/uploads/2016/01/signal-pwm-1.png)
 
+The DC-MOTOR is equiped with an encoder so we can either measure the motor speed using the Timer's Input Capture feature or its position using Timer's encoder Mode feature. In our case we will be modelling The transfer function ***H(z)*** of the DC-MOTOR with the voltage delivered to the motor as an input and the speed (Measured) as an output.
+
+Here I present an exemple of the algorithm's response with ***1000 samples*** and ***Fs = 100 Hz*** on the DC-MOTOR:
+
+
 
 
 
@@ -76,4 +81,4 @@ Since I am testing the model on a DC-MOTOR with NUCLEO-STM32H723ZG board, I will
 
                    
                    
-                   
+                  
