@@ -67,12 +67,17 @@ The input signal:
 
 I aimed to choose the input signal as a combination of sinusoids in order to have a diverse set of data for testing.<br/>
 Since I am testing the model on a DC-MOTOR with NUCLEO-STM32H723ZG board, I will be using the PWM Timer's feature to generate this Input signal with varying the Duty Cycle as shown below : 
->![PWM](https://www.electronique-mixte.fr/wp-content/uploads/2016/01/signal-pwm-1.png)
+><img src="https://www.electronique-mixte.fr/wp-content/uploads/2016/01/signal-pwm-1.png" width="500" height="300">
 
 The DC-MOTOR is equiped with an encoder so we can either measure the motor speed using the Timer's Input Capture feature or its position using Timer's encoder Mode feature. In our case we will be modelling The transfer function ***H(z)*** of the DC-MOTOR with the voltage delivered to the motor as an input and the speed (Measured) as an output.
 
 Here I present an exemple of the algorithm's response with ***1000 samples*** and ***Fs = 100 Hz*** on the DC-MOTOR:
+>*The plotted image down bellow represents the **measured output response** compared to the **simulated output response** (Simulated by the estimation algorithm).*<br/>  
+><img src="https://user-images.githubusercontent.com/88536804/162919572-43618450-bb96-4911-8493-c8140fff9ec0.png" width="600" height="400"><br/>
 
+- RLS_Data_Acqu case file contains the algorithm of input and output data acquisition using semi-hosting feature.<br/>
+- The RLS_DC case file contains the implementation of the algorithm on the NUCLEO-STM32H723ZG board.<br/>
+- Matlab_RLS case file contains data files and the implementation of the algorithm on Matlab.<br/>
 
 
 
