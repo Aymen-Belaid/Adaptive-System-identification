@@ -1,4 +1,4 @@
-# RLS-ALGORITHM
+# Adaptive-System-Parameter-Identification
 # 1 - Introduction
 When working on a dynamic system, either to control it or to study its stability or what ever, we find ourselves stuck not knowing its parameters. 
 Scrolling down datasheets and finding out each parameter of each component of the system is a way of doing, but is it the most efficient way? 
@@ -55,7 +55,19 @@ thus we define the updated transfer function coefficients:
 With the recursive equations in place, I will give a brieve description of the implementation of RLS algorithm on a NUCLEO-STM32H723ZG board. 
 And testing it's performance on a DC Motor.<br/>
 # 3 - RLS implementation and Testing
-I will present in this section the steps I have done to validate and implement RLS Algorithm
+I will present in this section the steps I have done to validate and implement RLS Algorithm.
+I first started by validating the model on Matlab because it was more practical in the implementation and the fastest way to test the efficency of my RLS algotithm.
+So I collected Input (Voltage) and Output (Speed) data from the Microcontroller using semi-hosting feature.<br/>
+The input signal:
+>![Input](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cfn_cm%20%5Csmall%20%5Ccolor%7BTeal%7DInput%20%3D%204x%28%5Cfrac%7B2.2sin%283.123t&plus;1.1%29&plus;2.3%7D%7B4.9%7D&plus;%5Cfrac%7B1.7sin%285.73t&plus;0.7%29&plus;1.8%7D%7B3.5%7D&plus;%5Cfrac%7B1.4sin%282.39t&plus;1.6%29&plus;1.4%7D%7B2.8%7D%29)
+>t = N/Fs.
+>N:Number of samples at t and Fs:Sampling Frequency.
+
+I aimed to choose the input signal as a combination of sinusoids in order to have a diverse set of data for testing.<br/>
+
+
+
+
 
 
 
