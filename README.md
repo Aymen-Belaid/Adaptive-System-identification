@@ -75,9 +75,9 @@ Here I present an exemple of the algorithm's response with ***1000 samples*** an
 >*The plotted image down bellow represents the **measured output response** compared to the **simulated output response** (Simulated by the estimation algorithm).*<br/>  
 ><img src="https://user-images.githubusercontent.com/88536804/162919572-43618450-bb96-4911-8493-c8140fff9ec0.png" width="600" height="400"><br/>
 
-- RLS_Data_Acqu case file contains the algorithm of input and output data acquisition using semi-hosting feature.<br/>
-- The RLS_DC case file contains the implementation of the algorithm on the NUCLEO-STM32H723ZG board.<br/>
-- Matlab_RLS case file contains data files and the implementation of the algorithm on Matlab.<br/>
+- RLS_Data_Acqu folder contains the algorithm of input and output data acquisition using semi-hosting feature.<br/>
+- The RLS_DC folder contains the implementation of the algorithm on the NUCLEO-STM32H723ZG board.<br/>
+- Matlab_RLS folder contains data files and the implementation of the algorithm on Matlab.<br/>
 
 
 
