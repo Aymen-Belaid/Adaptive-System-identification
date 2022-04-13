@@ -23,8 +23,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #define ARM_MATH_CM7
-
 #include "arm_math.h"
+#include "RLS.h"
+
 #include "stdint.h"
 #include <math.h>
 #include <stdbool.h>
@@ -59,34 +60,19 @@ TIM_HandleTypeDef htim24;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-int t = 0 ; // First teta at t == sysorder
+int t = 0 ; // First teta calculation at t == sysorder
 int sysorder = 2;
-arm_matrix_instance_f32 teta;
-arm_matrix_instance_f32 Xk;
-arm_matrix_instance_f32 Pn;
-void init_rls (void) ;
 
-arm_matrix_instance_f32 Xk_t;
-arm_matrix_instance_f32  constant;
-arm_matrix_instance_f32 cst_lambda;
-arm_matrix_instance_f32  K ;
-arm_matrix_instance_f32 Clone_K ;
-arm_matrix_instance_f32 constant1;
-arm_matrix_instance_f32 teta_new ;
-arm_matrix_instance_f32  Pn_new ;
-arm_matrix_instance_f32  cst2 ;
-arm_matrix_instance_f32  cst3 ;
+extern arm_matrix_instance_f32 teta;
+extern arm_matrix_instance_f32 Xk;
+extern arm_matrix_instance_f32 Pn;
 
-void init_param_calcul_teta(void);
-void teta_calc (arm_matrix_instance_f32 Xk , float output_t , float lambda); // input & output à l'instant t
-void update_X (float input , float output);
 float speed_aq (void);
-float32_t rep_sys (void);
+
 
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim);
 
-float * X;
 float speed = 0;
 float input_val = 0;
 float Fe = 100;
@@ -119,6 +105,7 @@ static void MX_TIM24_Init(void);
 /* USER CODE BEGIN 0 */
 
 float32_t output_est =0;
+float * X;
 
 /* USER CODE END 0 */
 
@@ -131,9 +118,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	X = (float*) malloc((2*sysorder)* sizeof(float));
 	__HAL_TIM_SET_COMPARE(&htim4,TIM_CHANNEL_4, ccr_reg);
-
-
-
 
   /* USER CODE END 1 */
 
@@ -165,8 +149,8 @@ int main(void)
   MX_TIM23_Init();
   MX_TIM24_Init();
   /* USER CODE BEGIN 2 */
-  init_rls ();
-  init_param_calcul_teta();
+  init_rls (sysorder);
+  init_param_calcul_teta(sysorder);
 
   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
@@ -185,12 +169,6 @@ int main(void)
   {
 	  speed = speed_aq();
 	  output_est =  rep_sys ();
-	 /* if (t>1000)
-	  {
-		  HAL_TIM_Base_Stop_IT(&htim2);
-		  HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);
-		  HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_RESET);
-	  }*/
 
     /* USER CODE END WHILE */
 
@@ -815,212 +793,14 @@ float speed_aq (void)
 	  return (speed);
 }
 
-int k = 0;
-
-
-void init_param_calcul_teta(void)
-{
-    //xt
-    float32_t  * data = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-	for (int i = 0 ; i < (2*sysorder) ; i++)
-	{
-		data [i] = 0;
-	}
-
-	arm_mat_init_f32 ( &Xk_t , 2*sysorder , 1  , data);
-
-
-    	float32_t  * data1 = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-		for (int i = 0 ; i < (2*sysorder) ; i++)
-		{
-			data1 [i] = 0;
-		}
-
-	arm_mat_init_f32 (&constant , 2*sysorder , 1 , data1);
-
-
-
-	float32_t  data_cst;
-	arm_mat_init_f32 (&cst_lambda , 1 , 1 , &data_cst);
-
-
-	float32_t  * data_k = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-		for (int i = 0 ; i < (2*sysorder) ; i++)
-		{
-			data_k [i] = 0;
-		}
-
-	arm_mat_init_f32 ( &K ,2*sysorder , 1 , data_k);
-
-	float32_t  data_cst1;
-	arm_mat_init_f32 (&constant1 , 1 , 1 , &data_cst1);
-
-
-	float32_t  * data2= (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-	for (int i = 0 ; i < (2*sysorder) ; i++)
-	{
-		data2 [i] = 0;
-	}
-
-	arm_mat_init_f32 ( &cst2  , 1 ,2*sysorder , data2);
-
-
-	float32_t  * data3= (float32_t *) malloc ((2*sysorder*2*sysorder)*sizeof(float32_t));
-	for (int i = 0 ; i < (2*sysorder*2*sysorder) ; i++)
-	{
-		data3 [i] = 0;
-	}
-
-	arm_mat_init_f32 ( &cst3  , 2*sysorder ,2*sysorder , data3);
-
-    float32_t  * data_teta = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-	for (int i = 0 ; i < (2*sysorder) ; i++)
-	{
-		data_teta [i] = 0;
-	}
-	arm_mat_init_f32 ( &teta_new , 2*sysorder, 1 , data_teta);
-
-    	float32_t  * data_pn_new = (float32_t *) malloc (pow((2*sysorder),2)*sizeof(float32_t));
-
-	for (int i = 0 ; i < pow((2*sysorder),2) ; i++)
-	{
-		data_pn_new [i] = 0;
-	}
-	for (int i = 0 ; i < 2*sysorder ; i++)
-	{
-		data_pn_new [ i*(2*sysorder + 1)] = 0.1 ;
-	}
-	arm_mat_init_f32 ( &Pn_new , 2*sysorder , 2*sysorder , data_pn_new);
-
-}
-void teta_calc (arm_matrix_instance_f32  Xk , float output_t , float lambda)
-{
-	arm_status status;
-	// calcul de K
-	status = arm_mat_trans_f32 (&Xk , &Xk_t);
-
-	status = arm_mat_mult_f32 (&Pn , &Xk_t , &constant); // constant == Pn*Xk'
-
-	status = arm_mat_mult_f32 (&Xk , &constant , &cst_lambda);// cst_lambda == Xk*(Pn*Xk')
-
-	*(cst_lambda.pData) = *(cst_lambda.pData) + (float32_t)lambda; // cst_lambda = lambda + Xk*(Pn*Xk')
-
-	status = arm_mat_mult_f32 (&Pn , &Xk_t , &K); // K == Pn*Xk'
-
-	for (int i = 0 ; i < 2*sysorder ; i++)
-	{
-		K.pData [i] = (K.pData [i])/(*(cst_lambda.pData)); /* K == (Pn * Xk')./(cst_lambda = (lambda + Xk*(Pn*Xk')))*/
-	}
-	Clone_K = K;
-
-	// teta
-
-	status = arm_mat_mult_f32 (&Xk , &teta , &constant1); // constant1 = Xk * teta
-
-	float32_t cst = (float32_t) output_t - *(constant1.pData); // cst = ( Y(t,:) - Xk * teta)
-
-	for (int i = 0 ; i < 2*sysorder ; i++)
-		{
-		Clone_K.pData [i] = (Clone_K.pData [i])*cst ;
-		}
-
-
-	status = arm_mat_add_f32 (&teta , &Clone_K , &teta_new);
-	teta = teta_new;
-
-
-	status = arm_mat_mult_f32 (&Xk , &Pn , &cst2); // cst2 = Xk*Pn
-
-
-	status = arm_mat_mult_f32 (&K , &cst2 , &cst3); // cst3 == K*(Xk*Pn)
-
-
-	status = arm_mat_sub_f32 (&Pn , &cst3 , &Pn_new);
-
-	for (int i = 0 ; i < ((2*sysorder)*(2*sysorder)) ; i ++)
-	{
-		Pn_new.pData [i] = Pn_new.pData [i] / lambda ;
-	}
-	Pn= Pn_new;
-
-}
-
-
-void update_X (float input , float output)
-{
-	// Yk
-	for (int i = (sysorder -1) ; i>0 ; i--)
-	{
-		X[i] = X[i-1];
-	}
-	X[0] = (-1) * output;
-
-	// Uk
-	for (int i = (2*sysorder -1) ; i > sysorder ; i--)
-	{
-		X[i] = X[i-1];
-	}
-	X[sysorder] = input;
-	arm_mat_init_f32 ( &Xk , 1 , 2*sysorder , X);
-
-}
-
-void init_rls (void)
-{
-
-	// init teta
-	float32_t  * data_t = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-	for (int i = 0 ; i < (2*sysorder) ; i++)
-	{
-		data_t [i] = 0;
-	}
-	arm_mat_init_f32 ( &teta , 2*sysorder, 1 , data_t);
-
-
-	//init Xk
-	float32_t  * data_xk = (float32_t *) malloc ((2*sysorder)*sizeof(float32_t));
-		for (int i = 0 ; i < (2*sysorder) ; i++)
-		{
-			data_xk [i] = 0;
-		}
-	arm_mat_init_f32 ( &Xk , 1 , 2*sysorder , data_xk);
-
-	//Init Pn
-	float32_t  * data_pn = (float32_t *) malloc (pow((2*sysorder),2)*sizeof(float32_t));
-
-	for (int i = 0 ; i < pow((2*sysorder),2) ; i++)
-	{
-		data_pn [i] = 0;
-	}
-	for (int i = 0 ; i < 2*sysorder ; i++)
-	{
-		data_pn [ i*(2*sysorder + 1)] = 0.1 ;
-	}
-	arm_mat_init_f32 ( &Pn , 2*sysorder , 2*sysorder , data_pn);
-
-
-
-}
-
-float32_t rep_sys (void)
-{
-	arm_matrix_instance_f32 rep;
-	float32_t  resp_output;
-	arm_mat_init_f32 (&rep , 1 , 1 , &resp_output);
-	arm_mat_mult_f32( &Xk, &teta , &rep);
-	return (*(rep.pData));
-
-
-}
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	if (t >= sysorder)
 	{
 
-		teta_calc (Xk , speed , 0.9995);
+		teta_calc (Xk , speed , 0.9995 , sysorder);
 	}
-	update_X (input_val,speed);
+	update_X (X , input_val,speed , sysorder);
 
 	t++;
 	DutyC =  (((2.2*sin(3.123*(double)(t/Fe)) + 2.3)/4.9) + ((1.7*sin(5.73*(double)(t/Fe)) + 1.8)/3.5) + ((1.4*sin(2.39*(double)(t/Fe)) + 1.4)/2.8))/3;

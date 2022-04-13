@@ -1,0 +1,17 @@
+../Core/Src/main.c:112:5:main	8	static
+../Core/Src/main.c:190:6:SystemClock_Config	120	static
+../Core/Src/main.c:247:13:MX_TIM2_Init	40	static
+../Core/Src/main.c:292:13:MX_TIM3_Init	56	static
+../Core/Src/main.c:341:13:MX_TIM4_Init	64	static
+../Core/Src/main.c:400:13:MX_TIM5_Init	40	static
+../Core/Src/main.c:445:13:MX_TIM8_Init	56	static
+../Core/Src/main.c:505:13:MX_TIM23_Init	40	static
+../Core/Src/main.c:550:13:MX_TIM24_Init	40	static
+../Core/Src/main.c:595:13:MX_USART3_UART_Init	8	static
+../Core/Src/main.c:643:13:MX_USB_OTG_HS_USB_Init	4	static
+../Core/Src/main.c:664:13:MX_GPIO_Init	56	static
+../Core/Src/main.c:794:5:pulses	4	static
+../Core/Src/main.c:806:7:speed_aq	16	static
+../Core/Src/main.c:818:6:Data_Aqc	24	static
+../Core/Src/main.c:848:6:HAL_TIM_PeriodElapsedCallback	24	static
+../Core/Src/main.c:869:6:Error_Handler	4	static,ignoring_inline_asm
