@@ -1,3 +1,4 @@
+simul = zeros(1000,1);
 ts = 0.01;
 sysorder = 2;
 lambda = 0.9995;
@@ -21,6 +22,7 @@ Y_Data = Output (1+sysorder :No,1);
   
 U = U_Data ( 1:sysorder , :);
 Y = Y_Data ( 1:sysorder , :);
+i = 1 ;
 
 
   while t <= N % N*data test 
@@ -34,31 +36,32 @@ U = [U ; U_Data(t)];
 Y = [Y ; Y_Data(t)];
 teta = teta + K*( Y(t,:) - Xk * teta);
 Pn = (Pn - K*(Xk*Pn))./lambda;
-t = t+ 1;
 
+%num = teta(sysorder+1 : 2*sysorder)';
+%denum = horzcat (1  , teta (1 : sysorder)');
+%P_Chapeau = tf ( num , denum ,0.01);
+
+simul (i) = teta'*Xk';
+
+i = i+1;
+t = t+ 1;
  end
  teta;
-num = teta(sysorder+1 : 2*sysorder)';
-denum = horzcat (1  , teta (1 : sysorder)');
-P_Chapeau = tf ( num , denum ,0.01);
-sys = d2c ( P_Chapeau ,'Tustin');
-num = [ 0.2541 - 60.45 1925];
-denum = [1 621.6 1823];
+
+
+
+tin = 0:ts:9.99;
 
 %Filtre PB%
 num = [1];
 denum = [0.1 1];
-FPB= tf (num , denum)
-FPB_z = c2d ( FPB , 0.01 , 'Tustin')
+FPB= tf (num , denum);
+FPB_z = c2d ( FPB , 0.01 , 'Tustin');
+Filtered_Sim =lsim (FPB_z,simul,tin)
 Filtered_Data = lsim (FPB_z,Output,tin);
 
-tin = 0:ts:9.99;
-Simulation = lsim (sys,Input,tin);
-A = [Simulation Filtered_Data];
+A = [Filtered_Sim Filtered_Data];
 plot (tin , A);
-p=ss(P_Chapeau);
-
-e= eig(p.A)
     
 
 
