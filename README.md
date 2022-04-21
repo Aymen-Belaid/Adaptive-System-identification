@@ -1,4 +1,4 @@
-# Adaptive-System-Parameter-Identification
+# Adaptive System Identification
 ## 1 - Introduction
 When working on a dynamic system, either to control it or to study its stability or what ever, we find ourselves stuck not knowing its parameters. 
 Scrolling down datasheets and finding out each parameter of each component of the system is a way of doing, but is it the most efficient way? 
