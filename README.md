@@ -69,6 +69,8 @@ I aimed to choose the input signal as a combination of sinusoids in order to hav
 Since I am testing the model on a DC-MOTOR with NUCLEO-STM32H723ZG board, I will be using the PWM Timer's feature to generate this Input signal with varying the Duty Cycle as shown below : 
 ><img src="https://www.electronique-mixte.fr/wp-content/uploads/2016/01/signal-pwm-1.png" width="500" height="300">
 
+## 4 - Results
+
 The DC-MOTOR is equiped with an encoder so we can either measure the motor speed using the Timer's Input Capture feature or its position using Timer's encoder Mode feature. In our case we will be modelling The transfer function ***H(z)*** of the DC-MOTOR with the voltage delivered to the motor as an input and the speed (Measured) as an output.
 
 Here I present an exemple of the algorithm's response with ***1000 samples*** and ***Fs = 100 Hz*** on the DC-MOTOR:
