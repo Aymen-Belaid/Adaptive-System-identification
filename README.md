@@ -75,7 +75,8 @@ The DC-MOTOR is equiped with an encoder so we can either measure the motor speed
 
 Here I present an exemple of the algorithm's response with ***1000 samples*** and ***Fs = 100 Hz*** on the DC-MOTOR:
 >*The plotted image down bellow represents the **measured output response** compared to the **simulated output response** (Simulated by the estimation algorithm).*<br/>  
-><img src="https://user-images.githubusercontent.com/88536804/163709200-e3ff48a4-e620-4c16-bb35-1ba96f3c64eb.png" width="600" height="400"><br/>
+><img src="https://user-images.githubusercontent.com/88536804/165941257-41a00a60-83ed-487a-b3e6-f6a98ed708a7.png" width="600" height="400"><br/>
+
 
 - RLS_Data_Acqu folder contains the algorithm of input and output data acquisition using semi-hosting feature.<br/>
 - The RLS_DC folder contains the implementation of the algorithm on the NUCLEO-STM32H723ZG board.<br/>
